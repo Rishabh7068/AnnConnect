@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar(props) {  
+  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">
@@ -25,7 +27,7 @@ export default function Navbar(props) {
           </li>
         </ul>
         <p>
-        <button className="btn btn-outline-success" type="submit">LogIn/SignUp</button>
+        <button className="btn btn-outline-success" onClick={() => navigate('/Login')} type="submit">LogIn/SignUp</button>
         </p>
       </div>
     </div>
@@ -40,3 +42,5 @@ Navbar.prototype = {
 Navbar.defaultProps = {
     title : "Send title Prop"
 };
+
+

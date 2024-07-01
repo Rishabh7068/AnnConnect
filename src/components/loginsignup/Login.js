@@ -50,7 +50,7 @@ const Login = () => {
       <button onClick={handleGoogleLogin}>Login with Google</button>
       {error && <p>{error}</p>}
       <p>
-        <button onClick={() => navigate('/signup')}>Sign Up</button>
+        <button onClick={() => navigate('/Signup')}>Sign Up</button>
       </p>
       <p>
         <button onClick={() => navigate('/ForgotPassword')}>Forgot Password?</button>

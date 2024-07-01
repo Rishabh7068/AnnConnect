@@ -1,4 +1,3 @@
-// src/components/Signup.js
 import React, { useState } from "react";
 import { auth } from "./firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -42,7 +41,7 @@ const Signup = () => {
       {error && <p>{error}</p>}
       <p>
         <p>Already have an account? 
-        <button onClick={() => navigate('/login')}>Log In</button>
+        <button onClick={() => navigate('/Login')}>Log In</button>
       </p>
       </p>
     </div>
