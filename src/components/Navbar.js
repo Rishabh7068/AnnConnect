@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-
-export default function Navbar(props) {
+export default function Navbar(props) {  
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">
@@ -25,9 +24,9 @@ export default function Navbar(props) {
             <a className="nav-link" href="/">Contact Us</a>
           </li>
         </ul>
-        <form className="d-flex" role="search">
-          <button className="btn btn-outline-success" type="submit">LogIn/SignUp</button>
-        </form>
+        <p>
+        <button className="btn btn-outline-success" type="submit">LogIn/SignUp</button>
+        </p>
       </div>
     </div>
   </nav>
