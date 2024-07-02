@@ -47,7 +47,6 @@ export default function Navbar(props) {
           <>
               <h6>{currentUser.email}</h6>
               <Logout/>
-              
           </>
         )}
       </div>

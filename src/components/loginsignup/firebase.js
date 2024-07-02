@@ -23,4 +23,4 @@ const googleProvider = new GoogleAuthProvider();
 auth.languageCode = 'it';
 auth.appVerificationDisabledForTesting = true;
 
-export {  auth ,googleProvider ,database ,RecaptchaVerifier, signInWithPhoneNumber};
+export { auth ,googleProvider ,database ,RecaptchaVerifier, signInWithPhoneNumber};
