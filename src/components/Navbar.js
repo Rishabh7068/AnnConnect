@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { useAuth } from "./loginsignup/AuthProvider";
+import Logout from "./loginsignup/logout";
 import { useNavigate } from 'react-router-dom';
 
-export default function Navbar(props) {  
+export default function Navbar(props) { 
   const navigate = useNavigate();
+  const { currentUser, loading } = useAuth();
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">
@@ -26,9 +29,18 @@ export default function Navbar(props) {
             <a className="nav-link" href="/">Contact Us</a>
           </li>
         </ul>
-        <p>
-        <button className="btn btn-outline-success" onClick={() => navigate('/Login')} type="submit">LogIn/SignUp</button>
-        </p>
+        {!loading && !currentUser && (
+          <> 
+            <p>
+              <button className="btn btn-outline-success" onClick={() => navigate('/Login')} type="submit">LogIn/SignUp</button>
+            </p>
+          </>
+        )}
+        {!loading && currentUser && (
+          <>
+              <h6>{currentUser.email}</h6><Logout/>
+          </>
+        )}
       </div>
     </div>
   </nav>

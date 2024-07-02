@@ -1,4 +1,3 @@
-// src/components/Login.js
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { auth ,googleProvider } from "./firebase";
@@ -16,6 +15,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("login successful!");
+      navigate("/user")
     } catch (error) {
       setError(error.message);
     }
@@ -50,6 +50,7 @@ const Login = () => {
       <button onClick={handleGoogleLogin}>Login with Google</button>
       {error && <p>{error}</p>}
       <p>
+         Don't have an account? 
         <button onClick={() => navigate('/Signup')}>Sign Up</button>
       </p>
       <p>

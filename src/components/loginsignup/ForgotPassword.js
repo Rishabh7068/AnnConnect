@@ -1,4 +1,3 @@
-// src/components/ForgotPassword.js
 import React, { useState } from "react";
 import { auth } from "./firebase";
 import { sendPasswordResetEmail } from "firebase/auth";

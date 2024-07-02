@@ -10,9 +10,13 @@ import ForgotPassword from './components/loginsignup/ForgotPassword';
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
+import { AuthProvider } from './components/loginsignup/AuthProvider';
+
 
 
 function App() {
+
+
   return(
     <>
     {/* <Navbar title = "AnnaConnect"/>
@@ -32,12 +36,15 @@ function App() {
     <Footer/> */}
 
 <BrowserRouter>
-    <Routes >
+<AuthProvider>
+<Routes >
           <Route path='/' exact element={<> <Navbar title = "AnnaConnect" /> <Content/> <Footer/> </>} />
           <Route path="/signup" element={<><Navbar title = "AnnaConnect" /> <Signup /> </>} />
           <Route path="/login" element={<><Navbar title = "AnnaConnect"/> <Login /> </>} />
+          <Route path="/user" element={<><Navbar title = "AnnaConnect"/> <Content/> <Footer/> </>} />
           <Route path="/ForgotPassword" element={<><Navbar title = "AnnaConnect"/> <ForgotPassword /> </>} />
       </Routes>
+</AuthProvider>
       </BrowserRouter>
     </>
   );
