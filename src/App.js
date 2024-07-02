@@ -13,6 +13,7 @@ import { Routes } from 'react-router-dom';
 import { AuthProvider } from './components/loginsignup/AuthProvider';
 import Dashboard from "./components/loginsignup/Dashboard";
 import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
+import Rerite from './components/loginsignup/Rerite';
 
 
 function App() {
@@ -37,19 +38,16 @@ function App() {
 <BrowserRouter>
 <AuthProvider>
 <Routes >
+          
+          {/* <Route path="/signup" element={<><Navbar title = "AnnaConnect" /> <Signup /> </>} />
+          <Route path="/login" element={<><Navbar title = "AnnaConnect"/> <Login /> </>} /> */}
+          {/* <Route path="/ForgotPassword" element={<><Navbar title = "AnnaConnect"/> <ForgotPassword /> </>} /> */}
+
           <Route path='/' exact element={<> <Navbar title = "AnnaConnect" /> <Content/> <Footer/> </>} />
-          <Route path="/signup" element={<><Navbar title = "AnnaConnect" /> <Signup /> </>} />
-          <Route path="/login" element={<><Navbar title = "AnnaConnect"/> <Login /> </>} />
-          <Route path="/ForgotPassword" element={<><Navbar title = "AnnaConnect"/> <ForgotPassword /> </>} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Navbar title = "AnnaConnect" />
-                <Dashboard />
-                <Content/> <Footer/>
-              </ProtectedRoute>
-            }
+          <Route path="/ForgotPassword"element={<Rerite><Navbar title = "AnnaConnect"/> <ForgotPassword /></Rerite>}/>
+          <Route path="/signup"element={<Rerite><Navbar title = "AnnaConnect"/> <Signup /></Rerite>}/>
+          <Route path="/login"element={<Rerite><Navbar title = "AnnaConnect"/> <Login /> </Rerite>}/>
+          <Route path="/dashboard"element={<ProtectedRoute> <Navbar title = "AnnaConnect" /><Dashboard /><Content/> <Footer/></ProtectedRoute>}
           />
       </Routes>
 </AuthProvider>

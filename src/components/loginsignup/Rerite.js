@@ -2,12 +2,12 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 
-const ProtectedRoute = ({ children }) => {
+const Rerite = ({ children }) => {
   const { currentUser } = useAuth();
-  if (!currentUser) {
-    return <Navigate to="/login" />;
+  if (currentUser) {
+    return <Navigate to="/Dashboard" />;
   }
   return children;
 };
 
-export default ProtectedRoute;
+export default Rerite;
