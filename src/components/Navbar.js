@@ -4,9 +4,13 @@ import { useAuth } from "./loginsignup/AuthProvider";
 import Logout from "./loginsignup/logout";
 import { useNavigate } from 'react-router-dom';
 
+
+
 export default function Navbar(props) { 
+
   const navigate = useNavigate();
   const { currentUser, loading } = useAuth();
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
     <div className="container-fluid">

@@ -15,7 +15,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("login successful!");
-      navigate("/user")
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     }

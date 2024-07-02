@@ -11,12 +11,11 @@ import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import { Routes } from 'react-router-dom';
 import { AuthProvider } from './components/loginsignup/AuthProvider';
-
+import Dashboard from "./components/loginsignup/Dashboard";
+import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
 
 
 function App() {
-
-
   return(
     <>
     {/* <Navbar title = "AnnaConnect"/>
@@ -41,8 +40,17 @@ function App() {
           <Route path='/' exact element={<> <Navbar title = "AnnaConnect" /> <Content/> <Footer/> </>} />
           <Route path="/signup" element={<><Navbar title = "AnnaConnect" /> <Signup /> </>} />
           <Route path="/login" element={<><Navbar title = "AnnaConnect"/> <Login /> </>} />
-          <Route path="/user" element={<><Navbar title = "AnnaConnect"/> <Content/> <Footer/> </>} />
           <Route path="/ForgotPassword" element={<><Navbar title = "AnnaConnect"/> <ForgotPassword /> </>} />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Navbar title = "AnnaConnect" />
+                <Dashboard />
+                <Content/> <Footer/>
+              </ProtectedRoute>
+            }
+          />
       </Routes>
 </AuthProvider>
       </BrowserRouter>
