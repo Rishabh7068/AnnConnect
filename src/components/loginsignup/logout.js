@@ -18,7 +18,7 @@ const Logout = () => {
   };
 
   return (
-    <button onClick={handleLogout}>
+    <button className="btn btn-outline-success" onClick={handleLogout}>
       Logout
     </button>
   );

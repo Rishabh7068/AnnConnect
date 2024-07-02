@@ -6,10 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 export default function Navbar(props) { 
 
   const navigate = useNavigate();
+
   const { currentUser, loading } = useAuth();
+  
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -42,7 +45,9 @@ export default function Navbar(props) {
         )}
         {!loading && currentUser && (
           <>
-              <h6>{currentUser.email}</h6><Logout/>
+              <h6>{currentUser.email}</h6>
+              <Logout/>
+              
           </>
         )}
       </div>

@@ -24,6 +24,7 @@ const Login = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       alert("Google login successful!");
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     }
