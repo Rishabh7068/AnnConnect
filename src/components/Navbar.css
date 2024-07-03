@@ -1,0 +1,19 @@
+nav{
+    background-color: #00a7a2 ;
+    height: 3.5rem;
+}
+.navbar{
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    width: 100%;
+}
+
+.btn{
+    background-color: #b3f0ee;
+    margin-top: 10px;
+    font: weight 5px;
+    color: black;
+
+}
