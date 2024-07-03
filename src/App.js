@@ -14,11 +14,13 @@ import { AuthProvider } from "./components/loginsignup/AuthProvider";
 import Registration from "./components/loginsignup/Registration";
 import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
 import Rerite from "./components/loginsignup/Rerite";
+import Submission from "./components/loginsignup/Submission";
 
 
 function App() {
   return (
     <>
+      
       {/* <Navbar title = "AnnaConnect"/>
     <AuthProvider>
       <Router>
@@ -82,7 +84,7 @@ function App() {
                 <ProtectedRoute>
                   {" "}
                   <Navbar title="AnnaConnect" />
-                  <Registration />
+                  <Submission/>
                 </ProtectedRoute>
               }
             />

@@ -19,7 +19,7 @@ const Signup = () => {
       setError(error.message);
     }
   };
-
+// sign up
   return (
     <div>
       <h2>Signup</h2>
