@@ -14,36 +14,15 @@ import { AuthProvider } from "./components/loginsignup/AuthProvider";
 import Registration from "./components/loginsignup/Registration";
 import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
 import Rerite from "./components/loginsignup/Rerite";
-import Submission from "./components/loginsignup/Submission";
 
 
 function App() {
   return (
     <>
       
-      {/* <Navbar title = "AnnaConnect"/>
-    <AuthProvider>
-      <Router>
-        <div>
-          <Routes>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
-    <Content/>
-    <Footer/> */}
-
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            {/* <Route path="/signup" element={<><Navbar title = "AnnaConnect" /> <Signup /> </>} />
-          <Route path="/login" element={<><Navbar title = "AnnaConnect"/> <Login /> </>} /> */}
-            {/* <Route path="/ForgotPassword" element={<><Navbar title = "AnnaConnect"/> <ForgotPassword /> </>} /> */}
-
             <Route
               path="/"
               exact
@@ -84,7 +63,7 @@ function App() {
                 <ProtectedRoute>
                   {" "}
                   <Navbar title="AnnaConnect" />
-                  <Submission/>
+                  <Registration/>
                 </ProtectedRoute>
               }
             />
