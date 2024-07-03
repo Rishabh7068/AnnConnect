@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
 import { getDatabase, ref, set } from "firebase/database";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
+import { useNavigate } from "react-router-dom";
 
-function Dashboard() {
+
+function Registration() {
   const { currentUser } = useAuth();
   const [img, setImg] = useState("");
   const [flag, setFlag] = useState(true);
+  const navigate = useNavigate();
   // class to store data
   const [formData, setFormData] = useState({
     userId: "",
@@ -29,7 +32,7 @@ function Dashboard() {
 
   function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag) {
     const db = getDatabase();
-    set(ref(db, "users/" + uid), {
+    set(ref(db, "users/" + uid + "/personal"), {
       userType: uty,
       organizationName: on,
       name: nam,
@@ -40,6 +43,8 @@ function Dashboard() {
       agreedToTerms: ag,
     });
   }
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,6 +90,14 @@ function Dashboard() {
 
       // Handle successful form submission
       alert("Form submitted successfully!");
+      
+      if(formData.userType === "Donor"){
+          navigate("/Donor");
+      }else{
+        navigate("/Ngo");
+      }
+
+
       setFormData({
         userType: "",
         organizationName: "",
@@ -190,4 +203,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Registration;

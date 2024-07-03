@@ -14,12 +14,13 @@ import { AuthProvider } from "./components/loginsignup/AuthProvider";
 import Registration from "./components/loginsignup/Registration";
 import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
 import Rerite from "./components/loginsignup/Rerite";
+import Donor from "./components/loginsignup/Donor";
+import Ngo from "./components/loginsignup/Ngo";
 
 
 function App() {
   return (
     <>
-      
       <BrowserRouter>
         <AuthProvider>
           <Routes>
@@ -28,8 +29,7 @@ function App() {
               exact
               element={
                 <>
-                  {" "}
-                  <Navbar title="AnnaConnect" /> <Content /> <Footer />{" "}
+                  <Navbar title="AnnaConnect" /> <Content /> <Footer />
                 </>
               }
             />
@@ -53,17 +53,46 @@ function App() {
               path="/login"
               element={
                 <Rerite>
-                  <Navbar title="AnnaConnect" /> <Login />{" "}
+                  <Navbar title="AnnaConnect" /> <Login />
                 </Rerite>
               }
             />
             <Route
-              path="/dashboard"
+              path="/Registration"
               element={
                 <ProtectedRoute>
-                  {" "}
+                  <div>
                   <Navbar title="AnnaConnect" />
-                  <Registration/>
+                  </div>
+                  <div>
+                    <Registration/>
+                  </div>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Donor"
+              element={
+                <ProtectedRoute>
+                  <div>
+                  <Navbar title="AnnaConnect" />
+                  </div>
+                  <div>
+                    <Donor/>
+                  </div>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Ngo"
+              element={
+                <ProtectedRoute>
+                  <div>
+                  <Navbar title="AnnaConnect" />
+                  </div>
+                  <div>
+                    <Ngo/>
+                  </div>
                 </ProtectedRoute>
               }
             />
