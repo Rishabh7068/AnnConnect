@@ -2,7 +2,6 @@ import React from "react";
 import { useAuth } from "./AuthProvider";
 import { useNavigate } from "react-router-dom";
 
-
 const Logout = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();

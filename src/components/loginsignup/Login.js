@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
-import { auth ,googleProvider } from "./firebase";
-import { signInWithEmailAndPassword ,signInWithPopup} from "firebase/auth";
-
+import { useNavigate } from "react-router-dom";
+import { auth, googleProvider } from "./firebase";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -51,11 +50,13 @@ const Login = () => {
       <button onClick={handleGoogleLogin}>Login with Google</button>
       {error && <p>{error}</p>}
       <p>
-         Don't have an account? 
-        <button onClick={() => navigate('/Signup')}>Sign Up</button>
+        Don't have an account?
+        <button onClick={() => navigate("/Signup")}>Sign Up</button>
       </p>
       <p>
-        <button onClick={() => navigate('/ForgotPassword')}>Forgot Password?</button>
+        <button onClick={() => navigate("/ForgotPassword")}>
+          Forgot Password?
+        </button>
       </p>
     </div>
   );

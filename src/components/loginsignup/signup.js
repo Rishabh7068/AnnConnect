@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
-
 
 const Signup = () => {
   const { signup } = useAuth();
@@ -9,7 +8,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,9 +40,10 @@ const Signup = () => {
       </form>
       {error && <p>{error}</p>}
       <p>
-        <p>Already have an account? 
-        <button onClick={() => navigate('/Login')}>Log In</button>
-      </p>
+        <p>
+          Already have an account?
+          <button onClick={() => navigate("/Login")}>Log In</button>
+        </p>
       </p>
     </div>
   );
