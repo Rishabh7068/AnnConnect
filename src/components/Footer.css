@@ -1,0 +1,12 @@
+.footer{
+    margin-top: 80px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: flex-start; 
+    padding: 20px; 
+    background-color: #bcbcbd;
+}
+.col-6 {
+    flex: 1; 
+    margin: 0 10px; 
+  }

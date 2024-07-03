@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useAuth } from "./loginsignup/AuthProvider";
 import Logout from "./loginsignup/logout";
 import { useNavigate } from "react-router-dom";
+import './Navbar.css';
 
 export default function Navbar(props) {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export default function Navbar(props) {
   const { currentUser, loading } = useAuth();
 
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg ">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
           {props.title}
