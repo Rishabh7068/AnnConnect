@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
-import { getDatabase, ref, set, child, get } from "firebase/database";
+import { collection, addDoc } from "firebase/firestore"; 
+import { db } from "./firebase";
 
 export default function ListEvent() {
   const { currentUser } = useAuth();
@@ -12,42 +13,19 @@ export default function ListEvent() {
  
 
 
-  function writeUserData() {
-    console.log(readUserData()+ " resasd" );
-    let x = readUserData()+1;
-    let st = x.toString();
-
-    console.log(x + " ssdasd" + st); 
-    const db = getDatabase();
-    set(ref(db, `users/${currentUser.uid}/listed_evet/${st}`), {
-      key : x,
-      name: name,
-      address: address,
-      contact: contact,
-      date: date,
-      noOfServing: 0,
-    });
-  }
-
-  function readUserData(){
-    let ans  = 0;
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, `users/${currentUser.uid}/listed_evet`))
-      .then((snapshot) => {
-        if (snapshot.exists()) {
-         ans = Object.keys(snapshot.val()).length;
-         console.log(snapshot.val());
-         console.log(ans);
-
-        } else {
-          console.log("No data available");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-
-      return ans;
+  async function writeUserData() {
+    try {
+        const docRef = await addDoc(collection(db, "" + currentUser.uid), {
+            name: name,
+            address: address,
+            contact: contact,
+            date: date,
+            noOfServing: 0,
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
   }
 
   const handleonclick = async (e) => {

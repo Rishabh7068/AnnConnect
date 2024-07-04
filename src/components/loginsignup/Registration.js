@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
-import { getDatabase, ref, set } from "firebase/database";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
 import { useNavigate } from "react-router-dom";
+import {  doc,setDoc } from "firebase/firestore"; 
+import { db } from "./firebase";
 
 
 function Registration() {
@@ -22,6 +23,8 @@ function Registration() {
     agreedToTerms: false,
   });
 
+  
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prevState) => ({
@@ -30,18 +33,23 @@ function Registration() {
     }));
   };
 
-  function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag) {
-    const db = getDatabase();
-    set(ref(db, "users/" + uid + "/personal"), {
-      userType: uty,
-      organizationName: on,
-      name: nam,
-      address: add,
-      mobileNo: no,
-      registrationId: rid,
-      pdfURL: urlll,
-      agreedToTerms: ag,
-    });
+  async function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag) {
+    try {
+      const docRef = await setDoc(doc(db, "user/" + uid), {
+        userType: uty,
+        organizationName: on,
+        name: nam,
+        address: add,
+        mobileNo: no,
+        registrationId: rid,
+        pdfURL: urlll,
+        agreedToTerms: ag,
+      });
+    
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 
   

@@ -1,32 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider";
-import { getDatabase, ref, child, get } from "firebase/database";
 import ListEvent from "./ListEvent";
+import Listedevent from "./Listedevent";
+import { doc, getDoc } from "firebase/firestore"; 
+import { db } from "./firebase";
 
 export default function Donor() {
   const [name, setName] = useState("");
   const { currentUser } = useAuth();
-  const dbRef = ref(getDatabase());
 
-  get(child(dbRef, `users/${currentUser.uid}/personal`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        setName(snapshot.val().name);
-      } else {
-        console.log("No data available");
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
 
+  useEffect( () => {
+    async function fetchData() {
+        const querySnapshot = await getDoc(doc(db, "user/" + currentUser.uid));        
+            setName(querySnapshot.data().name);
+    }
+    fetchData();
+    },)
+    
   return (
     <div>
       <h3>Welcome ,{name}</h3>
       <div>
       <ListEvent/>
+      <Listedevent/>
       </div>
- 
     </div>
   );
 }
