@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
 import { getDatabase, ref, set } from "firebase/database";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
+import './Registration.css'
 
 function Dashboard() {
   const {currentUser } = useAuth();
@@ -57,8 +58,8 @@ function Dashboard() {
   };
   return (
     <div>
-      <div>
-        <h2>Registration Form for </h2>
+      <div className="registration">
+        <h4><b>Registration Form </b></h4>
         {/* <p>{currentUser.email}</p> */}
         <form >
           <div>
@@ -125,6 +126,7 @@ function Dashboard() {
           </div>
           <div>
             <div>
+            <label>Upload Required Document:</label>
               <StoreImageTextFirebase setImg={setImg} setFlag={setFlag}  />
               <p>{img}</p>
             </div>

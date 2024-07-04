@@ -58,14 +58,14 @@ export default function Navbar(props) {
                   onClick={() => navigate("/Login")}
                   type="submit"
                 >
-                  LogIn/SignUp
+                  Login/SignUp
                 </button>
               </p>
             </>
           )}
           {!loading && currentUser && (
             <>
-              <h6>{currentUser.email}</h6>
+              <h6 className="email">{currentUser.email}</h6>
               <Logout />
             </>
           )}

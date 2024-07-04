@@ -14,6 +14,11 @@ nav{
     background-color: #b3f0ee;
     margin-top: 10px;
     font: weight 5px;
+    margin-left: 3px;
     color: black;
+}
 
+.email{
+    margin-right: 3px !important;
+    margin-top: 3px !important;
 }
