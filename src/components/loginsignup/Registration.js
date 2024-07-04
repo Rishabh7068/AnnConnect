@@ -1,56 +1,122 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
-import { getDatabase, ref, set } from "firebase/database";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
-import './Registration.css'
 
-function Dashboard() {
-  const {currentUser } = useAuth();
-  const [usertype, setuserType] = useState("");
-  const [organizationName, setOrganizationName] = useState("");
-  const [name, setName] = useState("");
-  const [address, setAddress] = useState("");
-  const [mobileno, setMobileNo] = useState("");
-  const [registrationId, setRegistrationId] = useState("");
+import './Registration.css'
+import { useNavigate } from "react-router-dom";
+import {  doc,setDoc } from "firebase/firestore"; 
+import { db } from "./firebase";
+
+
+function Registration() {
+  const { currentUser } = useAuth();
   const [img, setImg] = useState("");
-  const [agreedToTerms, setAgreedToTerms] = useState(false);
-  const [flag , setFlag]= useState(true);
+  const [flag, setFlag] = useState(true);
+  const navigate = useNavigate();
+  // class to store data
+  const [formData, setFormData] = useState({
+    userId: "",
+    userType: "",
+    organizationName: "",
+    name: "",
+    address: "",
+    mobileNo: "",
+    registrationId: "",
+    agreedToTerms: false,
+  });
+
   
 
-  function writeUserData() {
-    const db = getDatabase();
-    set(ref(db, "users/" + currentUser.uid), {
-      userType: usertype,
-      organizationName: organizationName,
-      name: name,
-      address: address,
-      mobileNo: mobileno,
-      registrationId: registrationId,
-      pdfURL: img,
-      agreedToTerms: agreedToTerms,
-    });
+  const handleChange = (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: files ? files[0] : value,
+    }));
+  };
+
+  async function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag) {
+    try {
+      const docRef = await setDoc(doc(db, "user/" + uid), {
+        userType: uty,
+        organizationName: on,
+        name: nam,
+        address: add,
+        mobileNo: no,
+        registrationId: rid,
+        pdfURL: urlll,
+        agreedToTerms: ag,
+      });
+    
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   }
 
-  const handleSubmit = async (e) => {
+  
 
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (
-      !usertype ||
-      !organizationName ||
-      !name ||
-      !address ||
-      !mobileno ||
-      !registrationId ||
-      !agreedToTerms
+      !formData.userType ||
+      !formData.organizationName ||
+      !formData.name ||
+      !formData.address ||
+      !formData.mobileNo ||
+      !formData.registrationId ||
+      !formData.agreedToTerms
     ) {
       alert("Please fill in all required fields.");
       return;
     }
+
+    // Prepare data to be stored in Firebase RTDB
+    const dataToSave = {
+      userId: currentUser.uid,
+      userType: formData.userType,
+      organizationName: formData.organizationName,
+      name: formData.name,
+      address: formData.address,
+      mobileNo: formData.mobileNo,
+      registrationId: formData.registrationId,
+      pdfurl: img,
+      agreedToTerms: formData.agreedToTerms,
+    };
+
     try {
       // Save data to Firebase RTDB
-      writeUserData();
+      writeUserData(
+        dataToSave.pdfurl,
+        dataToSave.userId,
+        dataToSave.userType,
+        dataToSave.organizationName,
+        dataToSave.name,
+        dataToSave.address,
+        dataToSave.mobileNo,
+        dataToSave.registrationId,
+        dataToSave.agreedToTerms
+      );
+
       // Handle successful form submission
       alert("Form submitted successfully!");
+      
+      if(formData.userType === "Donor"){
+          navigate("/Donor");
+      }else{
+        navigate("/Ngo");
+      }
+
+
+      setFormData({
+        userType: "",
+        organizationName: "",
+        name: "",
+        address: "",
+        mobileNo: "",
+        registrationId: "",
+        agreedToTerms: false,
+      });
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Failed to submit form. Please try again later.");
@@ -61,13 +127,13 @@ function Dashboard() {
       <div className="registration">
         <h4><b>Registration Form </b></h4>
         {/* <p>{currentUser.email}</p> */}
-        <form >
+        <form>
           <div>
             <label>User Type:</label>
             <select
               name="userType"
-              value={usertype}
-              onChange={(e) => setuserType(e.target.value)}
+              value={formData.userType}
+              onChange={handleChange}
               required
             >
               <option value="">Select...</option>
@@ -80,8 +146,8 @@ function Dashboard() {
             <input
               type="text"
               name="organizationName"
-              value={organizationName}
-              onChange={(e) => setOrganizationName(e.target.value)}
+              value={formData.organizationName}
+              onChange={handleChange}
               required
             />
           </div>
@@ -90,8 +156,8 @@ function Dashboard() {
             <input
               type="text"
               name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={formData.name}
+              onChange={handleChange}
               required
             />
           </div>
@@ -99,8 +165,8 @@ function Dashboard() {
             <label>Address:</label>
             <textarea
               name="address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={formData.address}
+              onChange={handleChange}
               required
             />
           </div>
@@ -109,8 +175,8 @@ function Dashboard() {
             <input
               type="tel"
               name="mobileNo"
-              value={mobileno}
-              onChange={(e) => setMobileNo(e.target.value)}
+              value={formData.mobileNo}
+              onChange={handleChange}
               required
             />
           </div>
@@ -119,15 +185,16 @@ function Dashboard() {
             <input
               type="text"
               name="registrationId"
-              value={registrationId}
-              onChange={(e) => setRegistrationId(e.target.value)}
+              value={formData.registrationId}
+              onChange={handleChange}
               required
             />
           </div>
           <div>
-            <div>
+
             <label>Upload Required Document:</label>
               <StoreImageTextFirebase setImg={setImg} setFlag={setFlag}  />
+
               <p>{img}</p>
             </div>
           </div>
@@ -135,17 +202,17 @@ function Dashboard() {
             <input
               type="checkbox"
               name="agreedToTerms"
-              value={agreedToTerms}
-              onChange={(e) => setAgreedToTerms(e.target.value)}
+              checked={formData.agreedToTerms}
+              onChange={handleChange}
               required
             />
             <label>I agree to the terms and conditions</label>
           </div>
-          <button type="submit" disabled={flag} onClick={handleSubmit} >Submit</button>
+          <button id="rty" type="submit" disabled = {flag} onClick={handleSubmit}>Submit</button>
         </form>
       </div>
     </div>
   );
 }
 
-export default Dashboard;
+export default Registration;

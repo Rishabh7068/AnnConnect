@@ -14,41 +14,22 @@ import { AuthProvider } from "./components/loginsignup/AuthProvider";
 import Registration from "./components/loginsignup/Registration";
 import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
 import Rerite from "./components/loginsignup/Rerite";
+import Donor from "./components/loginsignup/Donor";
+import Ngo from "./components/loginsignup/Ngo";
 
 
 function App() {
   return (
     <>
-      {/* <Navbar title = "AnnaConnect"/>
-    <AuthProvider>
-      <Router>
-        <div>
-          <Routes>
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
-          </Routes>
-        </div>
-      </Router>
-    </AuthProvider>
-    <Content/>
-    <Footer/> */}
-
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            {/* <Route path="/signup" element={<><Navbar title = "AnnaConnect" /> <Signup /> </>} />
-          <Route path="/login" element={<><Navbar title = "AnnaConnect"/> <Login /> </>} /> */}
-            {/* <Route path="/ForgotPassword" element={<><Navbar title = "AnnaConnect"/> <ForgotPassword /> </>} /> */}
-
             <Route
               path="/"
               exact
               element={
                 <>
-                  {" "}
-                  <Navbar title="AnnaConnect" /> <Content /> <Footer />{" "}
+                  <Navbar title="AnnaConnect" /> <Content /> <Footer />
                 </>
               }
             />
@@ -72,17 +53,46 @@ function App() {
               path="/login"
               element={
                 <Rerite>
-                  <Navbar title="AnnaConnect" /> <Login />{" "}
+                  <Navbar title="AnnaConnect" /> <Login />
                 </Rerite>
               }
             />
             <Route
-              path="/dashboard"
+              path="/Registration"
               element={
                 <ProtectedRoute>
-                  {" "}
+                  <div>
                   <Navbar title="AnnaConnect" />
-                  <Registration />
+                  </div>
+                  <div>
+                    <Registration/>
+                  </div>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Donor"
+              element={
+                <ProtectedRoute>
+                  <div>
+                  <Navbar title="AnnaConnect" />
+                  </div>
+                  <div>
+                    <Donor/>
+                  </div>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/Ngo"
+              element={
+                <ProtectedRoute>
+                  <div>
+                  <Navbar title="AnnaConnect" />
+                  </div>
+                  <div>
+                    <Ngo/>
+                  </div>
                 </ProtectedRoute>
               }
             />

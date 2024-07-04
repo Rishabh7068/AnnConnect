@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useAuth } from "./loginsignup/AuthProvider";
 import Logout from "./loginsignup/logout";
 import { useNavigate } from "react-router-dom";
-import './Navbar.css';
+// import './Navbar.css';
 
 export default function Navbar(props) {
   const navigate = useNavigate();

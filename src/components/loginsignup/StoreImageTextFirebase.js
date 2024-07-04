@@ -14,6 +14,7 @@ function StoreImageTextFirebase(props) {
   const handleUpload = () => {
     if (selectedFile) {
       const imgsRef = ref(imgDB, `Imgs/${v4()}`);
+      console.log("send");
       uploadBytes(imgsRef, selectedFile).then((data) => {
         getDownloadURL(data.ref).then((url) => {
           props.setImg(url);

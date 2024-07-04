@@ -32,7 +32,6 @@ export default function Content() {
         <p className="card-text">Donate food to needy through us!</p>
         </div>
     </div>
-
     <div className="card" >
       <div className="card-body">
         <h5 className="card-title">Get Food</h5>

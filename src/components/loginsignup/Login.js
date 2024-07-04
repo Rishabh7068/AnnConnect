@@ -15,7 +15,7 @@ const Login = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       alert("login successful!");
-      navigate("/dashboard");
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
@@ -24,7 +24,7 @@ const Login = () => {
     try {
       await signInWithPopup(auth, googleProvider);
       alert("Google login successful!");
-      navigate("/dashboard");
+      navigate("/Registration");
     } catch (error) {
       setError(error.message);
     }
