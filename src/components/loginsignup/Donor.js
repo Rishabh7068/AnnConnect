@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider";
-import ListEvent from "./ListEvent";
-import Listedevent from "./Listedevent";
+import { AddEventForm } from './AddEventForm';
+import { EventList } from './EventList';
 import { doc, getDoc } from "firebase/firestore"; 
 import { db } from "./firebase";
 
@@ -21,10 +21,9 @@ export default function Donor() {
   return (
     <div>
       <h3>Welcome ,{name}</h3>
-      <div>
-      <ListEvent/>
-      <Listedevent/>
-      </div>
+      <h1>NGO Organization</h1>
+      <AddEventForm />
+      <EventList />
     </div>
   );
 }
