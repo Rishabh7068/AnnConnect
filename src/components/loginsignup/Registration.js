@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
+
+import './Registration.css'
 import { useNavigate } from "react-router-dom";
 import {  doc,setDoc } from "firebase/firestore"; 
 import { db } from "./firebase";
@@ -122,8 +124,8 @@ function Registration() {
   };
   return (
     <div>
-      <div>
-        <h2>Registration Form for </h2>
+      <div className="registration">
+        <h4><b>Registration Form </b></h4>
         {/* <p>{currentUser.email}</p> */}
         <form>
           <div>
@@ -189,8 +191,10 @@ function Registration() {
             />
           </div>
           <div>
-            <div>
-              <StoreImageTextFirebase setImg={setImg}  setFlag={setFlag}/>
+
+            <label>Upload Required Document:</label>
+              <StoreImageTextFirebase setImg={setImg} setFlag={setFlag}  />
+
               <p>{img}</p>
             </div>
           </div>

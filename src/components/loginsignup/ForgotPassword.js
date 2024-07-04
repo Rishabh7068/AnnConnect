@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "./firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
+import './Loginsignup.css'
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div>
+    <div className="container reset">
       <h2>Forgot Password</h2>
       <form onSubmit={handleSubmit}>
         <input
