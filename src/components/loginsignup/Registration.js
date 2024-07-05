@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
 
-import './Registration.css'
+import "./Registration.css";
 import { useNavigate } from "react-router-dom";
-import {  doc,setDoc } from "firebase/firestore"; 
+import { collection,doc, setDoc ,addDoc} from "firebase/firestore";
 import { db } from "./firebase";
-
 
 function Registration() {
   const { currentUser } = useAuth();
@@ -25,8 +24,6 @@ function Registration() {
     agreedToTerms: false,
   });
 
-  
-
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prevState) => ({
@@ -35,9 +32,9 @@ function Registration() {
     }));
   };
 
-  async function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag) {
+  async function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag ,tp) {
     try {
-      const docRef = await setDoc(doc(db, "user/" + uid), {
+      const docRef = await setDoc(doc(db, "user" + tp +"/" + uid), {
         userType: uty,
         organizationName: on,
         name: nam,
@@ -47,14 +44,26 @@ function Registration() {
         pdfURL: urlll,
         agreedToTerms: ag,
       });
-    
-      console.log("Document written with ID: ", docRef.id);
+
+  
+      console.log("Addes");
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+
+
+    try {
+      await addDoc(collection(db,  "user" + tp + "ids"),{
+        Userid: uid,
+      });
+    } catch (error) {
+      console.error('Error adding document: ', error);
+    }
   }
 
-  
+ 
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -85,28 +94,48 @@ function Registration() {
     };
 
     try {
-      // Save data to Firebase RTDB
-      writeUserData(
-        dataToSave.pdfurl,
-        dataToSave.userId,
-        dataToSave.userType,
-        dataToSave.organizationName,
-        dataToSave.name,
-        dataToSave.address,
-        dataToSave.mobileNo,
-        dataToSave.registrationId,
-        dataToSave.agreedToTerms
-      );
 
+      if(dataToSave.userType === "Feeder"){
+
+        writeUserData(
+          dataToSave.pdfurl,
+          dataToSave.userId,
+          dataToSave.userType,
+          dataToSave.organizationName,
+          dataToSave.name,
+          dataToSave.address,
+          dataToSave.mobileNo,
+          dataToSave.registrationId,
+          dataToSave.agreedToTerms,
+          "Feeder"
+        );
+  
+
+      }else{
+        writeUserData(
+          dataToSave.pdfurl,
+          dataToSave.userId,
+          dataToSave.userType,
+          dataToSave.organizationName,
+          dataToSave.name,
+          dataToSave.address,
+          dataToSave.mobileNo,
+          dataToSave.registrationId,
+          dataToSave.agreedToTerms,
+          "Donor"
+        );
+  
+      }
+      // Save data to Firebase RTDB
+      
       // Handle successful form submission
       alert("Form submitted successfully!");
-      
-      if(formData.userType === "Donor"){
-          navigate("/Donor");
-      }else{
+
+      if (formData.userType === "Donor") {
+        navigate("/Donor");
+      } else {
         navigate("/Ngo");
       }
-
 
       setFormData({
         userType: "",
@@ -124,10 +153,13 @@ function Registration() {
   };
   return (
     <div>
-      <div className="registration">
-        <h4><b>Registration Form </b></h4>
-        {/* <p>{currentUser.email}</p> */}
-        <form>
+      <form action="">
+        <div className="registration">
+          <h4>
+            <b>Registration Form </b>
+          </h4>
+          {/* <p>{currentUser.email}</p> */}
+
           <div>
             <label>User Type:</label>
             <select
@@ -191,26 +223,27 @@ function Registration() {
             />
           </div>
           <div>
-
             <label>Upload Required Document:</label>
-              <StoreImageTextFirebase setImg={setImg} setFlag={setFlag}  />
-
-              <p>{img}</p>
-            </div>
+            <StoreImageTextFirebase setImg={setImg} setFlag={setFlag} />
+            <p>{img}</p>
           </div>
-          <div>
-            <input
-              type="checkbox"
-              name="agreedToTerms"
-              checked={formData.agreedToTerms}
-              onChange={handleChange}
-              required
-            />
-            <label>I agree to the terms and conditions</label>
-          </div>
-          <button id="rty" type="submit" disabled = {flag} onClick={handleSubmit}>Submit</button>
-        </form>
-      </div>
+        </div>
+        <div>
+          <input
+            type="checkbox"
+            name="agreedToTerms"
+            checked={formData.agreedToTerms}
+            onChange={handleChange}
+            required
+          />
+          <label>I agree to the terms and conditions</label>
+        </div>
+        <div>
+          <button id="rty" type="submit" disabled={flag} onClick={handleSubmit}>
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

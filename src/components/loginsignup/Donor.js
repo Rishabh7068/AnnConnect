@@ -12,16 +12,17 @@ export default function Donor() {
 
   useEffect( () => {
     async function fetchData() {
-        const querySnapshot = await getDoc(doc(db, "user/" + currentUser.uid));        
-            setName(querySnapshot.data().name);
-    }
+      const querySnapshot = await getDoc(doc(db, "userDonor/" + currentUser.uid));      
+          console.log(querySnapshot.data());  
+          setName(querySnapshot.data().name);
+  }
     fetchData();
     },)
     
   return (
     <div>
       <h3>Welcome ,{name}</h3>
-      <h1>NGO Organization</h1>
+      <h1>Donor</h1>
       <AddEventForm />
       <EventList />
     </div>

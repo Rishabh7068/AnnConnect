@@ -1,7 +1,6 @@
-// AddEventForm.js
 import React, { useState } from 'react';
 import { db } from './firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc ,getDoc,doc} from 'firebase/firestore';
 import { useAuth } from './AuthProvider';
 
 export const AddEventForm = () => {
@@ -9,21 +8,34 @@ export const AddEventForm = () => {
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [contact, setContact] = useState('');
+  const [on, setOn] = useState('');
   const { currentUser} = useAuth();
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, '' + currentUser.uid), {
+
+      const querySnapshot = await getDoc(
+        doc(db, "userDonor/" + currentUser.uid)
+      );
+      
+      setOn(querySnapshot.data().organizationName);
+      await addDoc(collection(db, 'userDonor/' + currentUser.uid +"/"+ "Events"), {
         date,
         name,
         address,
         contact,
+        on,
       });
+      
       setDate('');
       setName('');
       setAddress('');
       setContact('');
+      setOn('');
+      console.log('Added ');
     } catch (error) {
       console.error('Error adding document: ', error);
     }
