@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { db } from './firebase';
-import { collection, addDoc ,getDoc,doc} from 'firebase/firestore';
+import { collection, addDoc ,getDoc, doc} from 'firebase/firestore';
 import { useAuth } from './AuthProvider';
 
 export const AddEventForm = () => {
@@ -22,7 +22,7 @@ export const AddEventForm = () => {
       );
       
       setOn(querySnapshot.data().organizationName);
-      await addDoc(collection(db, 'userDonor/' + currentUser.uid +"/"+ "Events"), {
+      await addDoc(collection(db, 'userDonor/' + currentUser.uid + "/Events"), {
         date,
         name,
         address,

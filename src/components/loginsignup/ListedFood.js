@@ -1,37 +1,65 @@
 import React, { useEffect, useState } from "react";
-import { query,addDoc, collection, getDocs, updateDoc,where ,doc,getDoc } from "firebase/firestore"; 
+import {
+  query,
+  addDoc,
+  collection,
+  getDocs,
+  updateDoc,
+  where,
+  doc,
+  getDoc,
+} from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./AuthProvider";
 
-
-export const ListedFood = () =>  {
+export const ListedFood = () => {
   const [cars, setCars] = useState([]);
   const [need, setNeed] = useState("");
   const [con, setCon] = useState("");
   const [nam, setName] = useState("");
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     async function fetchData() {
       const carsData = [];
       const querySnapshot1 = collection(db, "userDonorids");
       const val = await getDocs(querySnapshot1);
-      
+      console.log(val);
       for (const doc of val.docs) {
+        console.log(val);
         const x = doc.data().Userid;
-        const eventcoll = query(collection(db, "userDonor/" + x + "/" + "Events"), where("servings", "!=", ""));
+        const eventcoll = query(
+          collection(db, "userDonor/" + x + "/Events"),
+          where("servings", "!=", "")
+        );
         const eve = await getDocs(eventcoll);
 
-        eve.forEach((dd) => {
+        const addcoll = query(
+          collection(db, "userFeeder/" + currentUser.uid + "/AddedFood")
+        );
+        const add = await getDocs(addcoll);
+        let z =1;
+
+        eve.forEach(async (dd) => {
+          var fg = false;
+          add.forEach((cc) => {
+            if (cc.data().id === dd.id) {
+              fg = cc.data().flag;
+            }
+          });
+
+          console.log(z);
+          z++;
+          console.log(add);
           carsData.push({
             id: dd.id,
-            uidd : doc.data().Userid,
+            uidd: doc.data().Userid,
             name: dd.data().name,
             address: dd.data().address,
             date: dd.data().date,
             servings: dd.data().servings,
             on: dd.data().on,
-            flag : false,
+            flag: fg,
           });
         });
       }
@@ -40,54 +68,48 @@ export const ListedFood = () =>  {
     }
 
     fetchData();
-  }, []);
+  });
 
-  const handleAddFood = async (idx, id ,uidd) => {
-    
-    if(con === "" || nam === "" || need === "") {
+  const handleAddFood = async (idx, id, uidd) => {
+    if (con === "" || nam === "" || need === "") {
       alert("feel all details");
       return;
     }
 
-    console.log(uidd + " / " + id);
     const querySnapshot = await getDoc(
-      doc(db, "userDonor/" + uidd + "/" + "Events" +"/" +id )
+      doc(db, "userDonor/" + uidd + "/Events/" + id)
     );
-    
-    console.log(querySnapshot.data().servings);
-    console.log(need);
 
-    let y = querySnapshot.data().servings - need; 
-    console.log(y);
+    let y = querySnapshot.data().servings - need;
 
     try {
-      const eventDoc = doc(db, "userDonor/" + uidd + "/" + "Events", id);
-      await updateDoc(eventDoc, { servings  : y });
+      const eventDoc = doc(db, "userDonor/" + uidd + "/Events", id);
+      await updateDoc(eventDoc, { servings: y });
     } catch (error) {
-      console.error('Error updating document: ', error);
+      console.error("Error updating document: ", error);
     }
 
     try {
+      await addDoc(
+        collection(db, "userFeeder/" + currentUser.uid + "/AddedFood"),
+        {
+          uidd,
+          id,
+          need,
+          nam,
+          con,
+          flag: true,
+        }
+      );
 
-      await addDoc(collection(db, 'userFeeder/' + currentUser.uid +"/"+ "AddedFood"), {
-        uidd,
-        id,
-        need,
-        nam,
-        con,
-      });
-     
-      setCars(prevCars => {
+      setCars((prevCars) => {
         const newCars = [...prevCars];
         newCars[idx].flag = true;
         return newCars;
       });
-
-
     } catch (error) {
-      console.error('Error adding document: ', error);
+      console.error("Error adding document: ", error);
     }
-
   };
 
   return (
@@ -135,7 +157,13 @@ export const ListedFood = () =>  {
                 />
               </td>
               <td>
-              <button onClick={() => handleAddFood(index, car.id, car.uidd)} disabled={car.flag}> {car.flag ? "Added" : "Add Food"} </button>
+                <button
+                  onClick={() => handleAddFood(index, car.id, car.uidd)}
+                  disabled={car.flag}
+                >
+                  {" "}
+                  {car.flag ? "Added" : "Add Food"}{" "}
+                </button>
               </td>
             </tr>
           ))}

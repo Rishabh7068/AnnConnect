@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "./firebase";
+import { auth, RecaptchaVerifier, signInWithPhoneNumber } from "../firebase";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../AuthProvider";
 
 function otp() {
   const [phone, setPhone] = useState("");

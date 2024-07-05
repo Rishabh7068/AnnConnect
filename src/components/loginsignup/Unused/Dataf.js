@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../AuthProvider";
 import { getDatabase, ref, set } from "firebase/database";
 
 export default function Dataf() {

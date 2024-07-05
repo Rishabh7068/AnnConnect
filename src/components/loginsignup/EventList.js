@@ -7,11 +7,11 @@ import { useAuth } from './AuthProvider';
 export const EventList = () => {
   const {currentUser} = useAuth();
   const [serving ,setServing] = useState("");
-  const [value, loading, error] = useCollection(collection(db, "userDonor/" + currentUser.uid + "/" + "Events"));
+  const [value, loading, error] = useCollection(collection(db, "userDonor/" + currentUser.uid +"/Events"));
 
   const handleAddServing = async (id) => {
     try {
-      const eventDoc = doc(db, "userDonor/" + currentUser.uid + "/" + "Events", id);
+      const eventDoc = doc(db, "userDonor/" + currentUser.uid +"/Events", id);
       await updateDoc(eventDoc, { servings  : serving});
     } catch (error) {
       console.error('Error updating document: ', error);
