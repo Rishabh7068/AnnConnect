@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useAuth } from "./loginsignup/AuthProvider";
-import Logout from "./loginsignup/logout";
+import { useAuth } from "../firebaseFile/AuthProvider";
+import Logout from "../loginfile/logout";
 import { useNavigate } from "react-router-dom";
 import './Navbar.css';
 

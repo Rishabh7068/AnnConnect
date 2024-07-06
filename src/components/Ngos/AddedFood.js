@@ -1,8 +1,8 @@
 //addedfood.js
 import React, { useState } from "react";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase";
-import { useAuth } from "./AuthProvider";
+import { db } from "../firebaseFile/firebase";
+import { useAuth } from "../firebaseFile/AuthProvider";
 import './ngo.css';
 
 export const AddedFood = () => {

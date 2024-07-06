@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { db } from "./firebase";
+import { db } from "../firebaseFile/firebase";
 import { collection, addDoc, getDoc, doc } from "firebase/firestore";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../firebaseFile/AuthProvider";
 
 export const AddEventForm = () => {
   const [date, setDate] = useState("");

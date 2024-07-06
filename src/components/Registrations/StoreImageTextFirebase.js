@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { imgDB } from "./firebase";
+import { imgDB } from "../firebaseFile/firebase";
 import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 

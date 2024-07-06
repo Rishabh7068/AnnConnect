@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../firebaseFile/AuthProvider";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc, addDoc } from "firebase/firestore";
-import { db } from "./firebase";
+import { db } from "../firebaseFile/firebase";
 
 function Registration() {
   const { currentUser } = useAuth();

@@ -1,9 +1,9 @@
 // ngo.js
 
 import React, { useEffect, useState } from "react";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../firebaseFile/AuthProvider";
 import {  doc, getDoc  } from "firebase/firestore";
-import { db } from "./firebase";
+import { db } from "../firebaseFile/firebase";
 import { ListedFood } from "./ListedFood";
 import { AddedFood } from "./AddedFood";
 import { useNavigate } from "react-router-dom";

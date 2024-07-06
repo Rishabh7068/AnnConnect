@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
-import { db } from "./firebase";
+import { db } from "../firebaseFile/firebase";
 import { collection, doc, updateDoc } from "firebase/firestore";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../firebaseFile/AuthProvider";
 
 export const EventList = () => {
   const { currentUser } = useAuth();

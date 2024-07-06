@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../firebaseFile/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {

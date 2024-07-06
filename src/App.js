@@ -1,20 +1,20 @@
 import "./App.css";
-import Content from "./components/Content";
-import Footer from "./components/Footer";
-import Navbar from "./components/Navbar";
-import Login from "./components/loginsignup/Login";
-import Signup from "./components/loginsignup/Signup";
+import Content from "./components/contents/Content";
+import Footer from "./components/footer/Footer";
+import Navbar from "./components/navbar/Navbar";
+import Login from "./components/loginfile/Login";
+import Signup from "./components/loginfile/Signup";
 import React from "react";
-import ForgotPassword from "./components/loginsignup/ForgotPassword";
+import ForgotPassword from "./components/loginfile/ForgotPassword";
 import { BrowserRouter } from "react-router-dom";
 import { Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
-import { AuthProvider } from "./components/loginsignup/AuthProvider";
-import Registration from "./components/loginsignup/Registration";
-import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
-import Rerite from "./components/loginsignup/Rerite";
-import Donor from "./components/loginsignup/Donor";
-import Ngo from "./components/loginsignup/Ngo";
+import { AuthProvider } from "./components/firebaseFile/AuthProvider";
+import Registration from "./components/Registrations/Registration";
+import ProtectedRoute from "./components/firebaseFile/ProtectedRoute";
+import Rerite from "./components/firebaseFile/Rerite";
+import Donor from "./components/Donors/Donor";
+import Ngo from "./components/Ngos/Ngo";
 
 function App() {
   return (

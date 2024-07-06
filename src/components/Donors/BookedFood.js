@@ -7,8 +7,8 @@ import {
   getDoc,
   doc,
 } from "firebase/firestore";
-import { db } from "./firebase";
-import { useAuth } from "./AuthProvider";
+import { db } from "../firebaseFile/firebase";
+import { useAuth } from "../firebaseFile/AuthProvider";
 
 export const BookedFood = () => {
   const [foods, setFoods] = useState([]);

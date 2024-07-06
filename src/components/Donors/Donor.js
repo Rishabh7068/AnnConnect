@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../firebaseFile/AuthProvider";
 import { AddEventForm } from "./AddEventForm";
 import { EventList } from "./EventList";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebase";
+import { db } from "../firebaseFile/firebase";
 import { useNavigate } from "react-router-dom";
 import { BookedFood } from "./BookedFood";
 
