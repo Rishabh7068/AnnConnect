@@ -23,7 +23,7 @@ export default function Ngo() {
           doc(db, "userFeeder/" + currentUser.uid)
         );
         setName(querySnapshot.data().name);
-        setName(querySnapshot.data().organizationName);
+        setOrganizationName(querySnapshot.data().organizationName);
       } catch (error) {
         navigate("/Donor");
       }
