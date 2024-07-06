@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth, googleProvider } from "./firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import './Loginsignup.css'
+import "./Loginsignup.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -33,7 +33,7 @@ const Login = () => {
   return (
     <div className="container col-2">
       <h2>Login</h2>
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
@@ -48,7 +48,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
-      <button onClick={handleGoogleLogin} >OR Login with Google</button>
+      <button onClick={handleGoogleLogin}>OR Login with Google</button>
       {error && <p>{error}</p>}
       <p>
         Don't have an account?

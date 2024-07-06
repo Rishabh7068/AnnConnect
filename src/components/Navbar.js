@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { useAuth } from "./loginsignup/AuthProvider";
 import Logout from "./loginsignup/logout";
 import { useNavigate } from "react-router-dom";
-// import './Navbar.css';
+//import './Navbar.css';
 
-export default function Navbar(props) {
+export default function Navbar({ title = "Send title Prop" }) {
   const navigate = useNavigate();
 
   const { currentUser, loading } = useAuth();
@@ -14,7 +14,7 @@ export default function Navbar(props) {
     <nav className="navbar navbar-expand-lg ">
       <div className="container-fluid">
         <a className="navbar-brand" href="/">
-          {props.title}
+          {title}
         </a>
         <button
           className="navbar-toggler"
@@ -79,6 +79,4 @@ Navbar.prototype = {
   title: PropTypes.string.isRequired,
 };
 
-Navbar.defaultProps = {
-  title: "Send title Prop",
-};
+

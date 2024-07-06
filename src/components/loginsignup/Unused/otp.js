@@ -12,11 +12,9 @@ function otp() {
   const { currentUser } = useAuth();
 
   const senOtp = async () => {
-    console.log(phone);
     try {
       const recaptcha = new RecaptchaVerifier(auth, "recaptcha", {});
       const confirmation = await signInWithPhoneNumber(auth, phone, recaptcha);
-      console.log(confirmation);
       setUser(confirmation);
     } catch (error) {
       console.error("Error sending OTP:", error);

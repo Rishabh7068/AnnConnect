@@ -1,43 +1,40 @@
-import React, { useState } from 'react';
-import { db } from './firebase';
-import { collection, addDoc ,getDoc, doc} from 'firebase/firestore';
-import { useAuth } from './AuthProvider';
+import React, { useState } from "react";
+import { db } from "./firebase";
+import { collection, addDoc, getDoc, doc } from "firebase/firestore";
+import { useAuth } from "./AuthProvider";
 
 export const AddEventForm = () => {
-  const [date, setDate] = useState('');
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [contact, setContact] = useState('');
-  const [on, setOn] = useState('');
-  const { currentUser} = useAuth();
-
-
+  const [date, setDate] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [contact, setContact] = useState("");
+  const [on, setOn] = useState("");
+  const { currentUser } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
       const querySnapshot = await getDoc(
         doc(db, "userDonor/" + currentUser.uid)
       );
-      
+
       setOn(querySnapshot.data().organizationName);
-      await addDoc(collection(db, 'userDonor/' + currentUser.uid + "/Events"), {
+      await addDoc(collection(db, "userDonor/" + currentUser.uid + "/Events"), {
         date,
         name,
         address,
         contact,
         on,
       });
-      
-      setDate('');
-      setName('');
-      setAddress('');
-      setContact('');
-      setOn('');
-      console.log('Added ');
+
+      setDate("");
+      setName("");
+      setAddress("");
+      setContact("");
+      setOn("");
+      console.log("Added ");
     } catch (error) {
-      console.error('Error adding document: ', error);
+      console.error("Error adding document: ", error);
     }
   };
 

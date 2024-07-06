@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider";
-import { AddEventForm } from './AddEventForm';
-import { EventList } from './EventList';
-import { doc, getDoc } from "firebase/firestore"; 
+import { AddEventForm } from "./AddEventForm";
+import { EventList } from "./EventList";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
+import { useNavigate } from "react-router-dom";
 
 export default function Donor() {
   const [name, setName] = useState("");
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
 
-
-  useEffect( () => {
+  useEffect(() => {
     async function fetchData() {
-      const querySnapshot = await getDoc(doc(db, "userDonor/" + currentUser.uid));      
-          console.log(querySnapshot.data());  
-          setName(querySnapshot.data().name);
-  }
+      try {
+        const querySnapshot = await getDoc(
+          doc(db, "userDonor/" + currentUser.uid)
+        );
+        setName(querySnapshot.data().name);
+      } catch (error) {
+        navigate("/Ngo");
+      }
+    }
     fetchData();
-    },)
-    
+  });
+
   return (
     <div>
       <h3>Welcome ,{name}</h3>

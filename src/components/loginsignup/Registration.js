@@ -4,7 +4,7 @@ import StoreImageTextFirebase from "./StoreImageTextFirebase";
 
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
-import { collection,doc, setDoc ,addDoc} from "firebase/firestore";
+import { collection, doc, setDoc, addDoc } from "firebase/firestore";
 import { db } from "./firebase";
 
 function Registration() {
@@ -32,9 +32,9 @@ function Registration() {
     }));
   };
 
-  async function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag ,tp) {
+  async function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag, tp) {
     try {
-      const docRef = await setDoc(doc(db, "user" + tp +"/" + uid), {
+       await setDoc(doc(db, "user" + tp + "/" + uid), {
         userType: uty,
         organizationName: on,
         name: nam,
@@ -45,25 +45,19 @@ function Registration() {
         agreedToTerms: ag,
       });
 
-  
-      console.log("Addes");
+     
     } catch (e) {
       console.error("Error adding document: ", e);
     }
 
-
     try {
-      await addDoc(collection(db,  "user" + tp + "ids"),{
+      await addDoc(collection(db, "user" + tp + "ids"), {
         Userid: uid,
       });
     } catch (error) {
-      console.error('Error adding document: ', error);
+      console.error("Error adding document: ", error);
     }
   }
-
- 
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,9 +88,7 @@ function Registration() {
     };
 
     try {
-
-      if(dataToSave.userType === "Feeder"){
-
+      if (dataToSave.userType === "Feeder") {
         writeUserData(
           dataToSave.pdfurl,
           dataToSave.userId,
@@ -109,9 +101,7 @@ function Registration() {
           dataToSave.agreedToTerms,
           "Feeder"
         );
-  
-
-      }else{
+      } else {
         writeUserData(
           dataToSave.pdfurl,
           dataToSave.userId,
@@ -124,10 +114,9 @@ function Registration() {
           dataToSave.agreedToTerms,
           "Donor"
         );
-  
       }
       // Save data to Firebase RTDB
-      
+
       // Handle successful form submission
       alert("Form submitted successfully!");
 

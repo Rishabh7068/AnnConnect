@@ -3,9 +3,7 @@ import { imgDB } from "./firebase";
 import { v4 } from "uuid";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-
 function StoreImageTextFirebase(props) {
-  
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -14,7 +12,7 @@ function StoreImageTextFirebase(props) {
   const handleUpload = () => {
     if (selectedFile) {
       const imgsRef = ref(imgDB, `Imgs/${v4()}`);
-      console.log("send");
+     
       uploadBytes(imgsRef, selectedFile).then((data) => {
         getDownloadURL(data.ref).then((url) => {
           props.setImg(url);
@@ -25,7 +23,7 @@ function StoreImageTextFirebase(props) {
   };
   return (
     <div>
-      <input type="file" onChange={handleFileChange} required/>
+      <input type="file" onChange={handleFileChange} required />
       <br />
       <br />
       <button onClick={handleUpload}>Upload</button>

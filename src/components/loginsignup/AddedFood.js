@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { collection, getDocs ,doc,getDoc } from "firebase/firestore"; 
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./AuthProvider";
 
-
-export const AddedFood = () =>  {
+export const AddedFood = () => {
   const [cars, setCars] = useState([]);
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
 
   async function fetchData() {
     const carsData = [];
-    
-    const querySnapshot1 = collection(db, "userFeeder/" + currentUser.uid + "/AddedFood");
+
+    const querySnapshot1 = collection(
+      db,
+      "userFeeder/" + currentUser.uid + "/AddedFood"
+    );
     const val = await getDocs(querySnapshot1);
     for (const docc of val.docs) {
       const x = docc.data().uidd;
@@ -21,23 +23,22 @@ export const AddedFood = () =>  {
       const orgDoc = await getDoc(doc(db, "userDonor/" + x));
 
       carsData.push({
-          oa: orgDoc.data().organizationName,
-          date: eveDoc.data().date,
-          name: eveDoc.data().name,
-          add: eveDoc.data().address,
-          con: eveDoc.data().contact,
-          reserve: docc.data().need,
-        });
+        oa: orgDoc.data().organizationName,
+        date: eveDoc.data().date,
+        name: eveDoc.data().name,
+        add: eveDoc.data().address,
+        con: eveDoc.data().contact,
+        reserve: docc.data().need,
+      });
     }
 
     setCars(carsData);
   }
 
-
   return (
     <div>
       <h2>Confirm Food </h2>
-      <button onClick={fetchData} >Show Confirm Food</button>
+      <button onClick={fetchData}>Show Confirm Food</button>
       <table border="2px">
         <thead>
           <tr>

@@ -21,7 +21,6 @@ export default function Dataf() {
     setid(currentUser.uid);
     try {
       writeUserData(id, name, num);
-      console.log("data store sucess");
     } catch (error) {
       console.log(error);
     }

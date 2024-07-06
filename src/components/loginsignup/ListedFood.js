@@ -23,13 +23,13 @@ export const ListedFood = () => {
     const carsData = [];
     const querySnapshot1 = collection(db, "userDonorids");
     const val = await getDocs(querySnapshot1);
-    console.log(val);
+  
     for (const doc of val.docs) {
-      console.log(val);
       const x = doc.data().Userid;
       const eventcoll = query(
         collection(db, "userDonor/" + x + "/Events"),
-        where("servings", "!=", ""),orderBy("date")
+        where("servings", "!=", ""),
+        orderBy("date")
       );
       const eve = await getDocs(eventcoll);
 
@@ -37,7 +37,7 @@ export const ListedFood = () => {
         collection(db, "userFeeder/" + currentUser.uid + "/AddedFood")
       );
       const add = await getDocs(addcoll);
-      let z =1;
+      
 
       eve.forEach(async (dd) => {
         var fg = false;
@@ -47,9 +47,8 @@ export const ListedFood = () => {
           }
         });
 
-        console.log(z);
-        z++;
-        console.log(add);
+       
+        
         carsData.push({
           id: dd.id,
           uidd: doc.data().Userid,
@@ -59,7 +58,7 @@ export const ListedFood = () => {
           servings: dd.data().servings,
           on: dd.data().on,
           flag: fg,
-          value : 0,
+          value: 0,
         });
       });
     }
@@ -73,7 +72,7 @@ export const ListedFood = () => {
       return;
     }
 
-    let need =cars[idx].value;
+    let need = cars[idx].value;
 
     const querySnapshot = await getDoc(
       doc(db, "userDonor/" + uidd + "/Events/" + id)
@@ -157,13 +156,19 @@ export const ListedFood = () => {
                   value={cars[index].value}
                   onChange={(e) => {
                     const value = e.target.value;
-                    if (value > car.servings) { // Replace 100 with your desired maximum value
+                    if (value > car.servings) {
                       setCars((prevCars) => {
                         const newCars = [...prevCars];
                         newCars[index].value = car.servings;
                         return newCars;
-                      }); // Set to maximum value if exceeded
-                    } else {
+                      });
+                    } else if(value < 0){
+                      setCars((prevCars) => {
+                        const newCars = [...prevCars];
+                        newCars[index].value =0;
+                        return newCars;
+                      });
+                    }else {
                       setCars((prevCars) => {
                         const newCars = [...prevCars];
                         newCars[index].value = value;
