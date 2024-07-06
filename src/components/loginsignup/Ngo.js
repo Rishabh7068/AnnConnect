@@ -11,6 +11,7 @@ import './ngo.css';
 
 export default function Ngo() {
   const [name, setName] = useState("");
+  const [OrganizationName, setOrganizationName] = useState("");
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   
@@ -22,6 +23,7 @@ export default function Ngo() {
           doc(db, "userFeeder/" + currentUser.uid)
         );
         setName(querySnapshot.data().name);
+        setName(querySnapshot.data().organizationName);
       } catch (error) {
         navigate("/Donor");
       }
@@ -32,8 +34,8 @@ export default function Ngo() {
  
   return (
     <div className="added-food-container">
-      <h3>Welcome -,{name}</h3>
-      <h2>NGO Organization</h2>
+      <h3>Welcome - {name}</h3>
+      <h2>Organization - {OrganizationName}</h2>
       <ListedFood/>
       <AddedFood/>
     </div>

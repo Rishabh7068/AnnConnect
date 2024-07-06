@@ -11,6 +11,8 @@ export default function Donor() {
   const [name, setName] = useState("");
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const [organizationName, setOrganizationName] = useState("");
+
 
   useEffect(() => {
     async function fetchData() {
@@ -19,6 +21,7 @@ export default function Donor() {
           doc(db, "userDonor/" + currentUser.uid)
         );
         setName(querySnapshot.data().name);
+        setOrganizationName(querySnapshot.data().organizationName)
       } catch (error) {
         navigate("/Ngo");
       }
@@ -28,8 +31,8 @@ export default function Donor() {
 
   return (
     <div className="added-food-container">
-      <h3>Welcome ,{name}</h3>
-      <h1>Donor</h1>
+      <h3>Welcome - {name}</h3>
+      <h1>Organization Name - {organizationName}  </h1>
       <AddEventForm />
       <EventList />
       <BookedFood/>
