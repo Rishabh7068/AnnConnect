@@ -53,7 +53,7 @@ h4 {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #00a7a2;
+  background-color: #328f48;
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -61,7 +61,7 @@ h4 {
 }
 
 .registration button:hover {
-  background-color: #008f8a;
+  background-color: #328f48;
 }
 
 .registration .image-upload {

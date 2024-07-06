@@ -5,7 +5,7 @@ import { useAuth } from "./AuthProvider";
 const Rerite = ({ children }) => {
   const { currentUser } = useAuth();
   if (currentUser) {
-    return <Navigate to="/Dashboard" />;
+    return <Navigate to="/" />;
   }
   return children;
 };

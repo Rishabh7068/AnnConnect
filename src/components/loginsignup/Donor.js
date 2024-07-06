@@ -27,7 +27,7 @@ export default function Donor() {
   });
 
   return (
-    <div>
+    <div className="added-food-container">
       <h3>Welcome ,{name}</h3>
       <h1>Donor</h1>
       <AddEventForm />

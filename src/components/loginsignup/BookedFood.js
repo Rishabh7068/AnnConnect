@@ -66,7 +66,7 @@ export const BookedFood = () => {
   }
 
   return (
-    <div>
+    <div className="added-food-container">
       <h2>Booked From All Donors</h2>
       <button onClick={fetchData}>Show List</button>
       <table border="2px">

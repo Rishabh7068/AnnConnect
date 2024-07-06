@@ -1,7 +1,9 @@
+//addedfood.js
 import React, { useState } from "react";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./AuthProvider";
+import './ngo.css';
 
 export const AddedFood = () => {
   const [food, setFoods] = useState([]);
@@ -40,33 +42,33 @@ export const AddedFood = () => {
   }
 
   return (
-    <div>
-      <h2>Confirmed Food</h2>
-      <button onClick={fetchData}>Show Confirmed Food</button>
-      <table border="2px">
-        <thead>
-          <tr>
-            <th>Organization Name</th>
-            <th>Date</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Contact</th>
-            <th>Reserved Serving</th>
+    <div className="added-food-container">
+    <h2>Confirmed Food</h2>
+    <button onClick={fetchData}>Show Confirmed Food</button>
+    <table border="2px">
+      <thead>
+        <tr>
+          <th>Organization Name</th>
+          <th>Date</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Contact</th>
+          <th>Reserved Serving</th>
+        </tr>
+      </thead>
+      <tbody>
+        {food.map((data, index) => (
+          <tr key={index}>
+            <td>{data.organizationName}</td>
+            <td>{data.date}</td>
+            <td>{data.name}</td>
+            <td>{data.address}</td>
+            <td>{data.contact}</td>
+            <td>{data.reserve}</td>
           </tr>
-        </thead>
-        <tbody>
-          {food.map((data, index) => (
-            <tr key={index}>
-              <td>{data.organizationName}</td>
-              <td>{data.date}</td>
-              <td>{data.name}</td>
-              <td>{data.address}</td>
-              <td>{data.contact}</td>
-              <td>{data.reserve}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
+  </div>
   );
 };

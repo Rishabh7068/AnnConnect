@@ -1,3 +1,5 @@
+// ngo.js
+
 import React, { useEffect, useState } from "react";
 import { useAuth } from "./AuthProvider";
 import {  doc, getDoc  } from "firebase/firestore";
@@ -5,6 +7,7 @@ import { db } from "./firebase";
 import { ListedFood } from "./ListedFood";
 import { AddedFood } from "./AddedFood";
 import { useNavigate } from "react-router-dom";
+import './ngo.css';
 
 export default function Ngo() {
   const [name, setName] = useState("");
@@ -28,7 +31,7 @@ export default function Ngo() {
 
  
   return (
-    <div>
+    <div className="added-food-container">
       <h3>Welcome -,{name}</h3>
       <h2>NGO Organization</h2>
       <ListedFood/>

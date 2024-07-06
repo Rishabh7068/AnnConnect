@@ -24,7 +24,7 @@ export const EventList = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <div>
+    <div className="added-food-container">
       <h2>Event List</h2>
       <table border="2px">
         <tr>

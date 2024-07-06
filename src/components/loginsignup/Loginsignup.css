@@ -35,14 +35,14 @@
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #00a7a2;
+  background-color: #328f48;
   color: white;
   font-size: 16px;
   cursor: pointer;
 }
 
 .container button:hover {
-  background-color: #008f8a;
+  background-color: #328f48;
 }
 
 .container p {
@@ -53,7 +53,7 @@
 .container p button {
   background: none;
   border: none;
-  color: #00a7a2;
+  color: #328f48;
   cursor: pointer;
   font-size: 14px;
 }
@@ -67,7 +67,7 @@
 }
 
 .container p button:active {
-  color: #008f8a;
+  color: #328f48;
 }
 
 .container p p {

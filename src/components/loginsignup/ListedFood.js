@@ -1,3 +1,4 @@
+// listedfood. js
 import React, { useState } from "react";
 import {
   query,
@@ -12,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./AuthProvider";
+import './ngo.css';
 
 export const ListedFood = () => {
   const [foods, setFoods] = useState([]);
@@ -108,7 +110,7 @@ export const ListedFood = () => {
   };
 
   return (
-    <div>
+    <div className="added-food-container" >
       <h2>Listed Food From All Donors</h2>
       <button onClick={fetchData}>Show List</button>
       <table border="2px">
