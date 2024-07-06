@@ -1,32 +1,70 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, googleProvider } from "./firebase";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, db, googleProvider } from "./firebase";
+import { signInWithEmailAndPassword, signInWithPopup, sendEmailVerification } from "firebase/auth";
 import "./Loginsignup.css";
+import { doc, getDoc } from "firebase/firestore";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [key, setKey] = useState("Sign In");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("login successful!");
-      navigate("/");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      console.log(user.emailVerified);
+      if (user.emailVerified) {
+        setKey("Success");
+        checkUserProfile(user);
+      } else {
+        alert("Please verify your email before logging in.");
+        await user.auth.signOut();
+        navigate("/Login");
+      }
     } catch (error) {
       setError(error.message);
     }
   };
+
   const handleGoogleLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
-      alert("Google login successful!");
-      navigate("/Registration");
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      const user = userCredential.user;
+      if (user.emailVerified) {
+        setKey("Success");
+        checkUserProfile(user);
+      } else {
+        setError("Please verify your email before logging in.");
+        sendEmailVerification(user);
+      }
     } catch (error) {
       setError(error.message);
+    }
+  };
+
+  const checkUserProfile = async (user) => {
+    try {
+      const donorDoc = await getDoc(doc(db, "userDonor", user.uid));
+      if (donorDoc.exists()) {
+        navigate("/Donor");
+        return;
+      }
+
+      const feederDoc = await getDoc(doc(db, "userFeeder", user.uid));
+      if (feederDoc.exists()) {
+        navigate("/Ngo");
+        return;
+      }
+
+      navigate("/Registration");
+    } catch (error) {
+      setError("Error checking user profile: " + error.message);
     }
   };
 
@@ -46,7 +84,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Login</button>
+        <button type="submit">{key}</button>
       </form>
       <button onClick={handleGoogleLogin}>OR Login with Google</button>
       {error && <p>{error}</p>}

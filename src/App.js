@@ -4,7 +4,6 @@ import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import Login from "./components/loginsignup/Login";
 import Signup from "./components/loginsignup/Signup";
-// import { AuthProvider, AuthContext } from "./components/loginsignup/AuthProvider";
 import React from "react";
 import ForgotPassword from "./components/loginsignup/ForgotPassword";
 import { BrowserRouter } from "react-router-dom";
@@ -16,7 +15,6 @@ import ProtectedRoute from "./components/loginsignup/ProtectedRoute";
 import Rerite from "./components/loginsignup/Rerite";
 import Donor from "./components/loginsignup/Donor";
 import Ngo from "./components/loginsignup/Ngo";
-
 
 function App() {
   return (
@@ -62,10 +60,10 @@ function App() {
               element={
                 <ProtectedRoute>
                   <div>
-                  <Navbar title="AnnaConnect" />
+                    <Navbar title="AnnaConnect" />
                   </div>
                   <div>
-                    <Registration/>
+                    <Registration />
                   </div>
                 </ProtectedRoute>
               }
@@ -75,10 +73,10 @@ function App() {
               element={
                 <ProtectedRoute>
                   <div>
-                  <Navbar title="AnnaConnect" />
+                    <Navbar title="AnnaConnect" />
                   </div>
                   <div>
-                    <Donor/>
+                    <Donor />
                   </div>
                 </ProtectedRoute>
               }
@@ -88,10 +86,10 @@ function App() {
               element={
                 <ProtectedRoute>
                   <div>
-                  <Navbar title="AnnaConnect" />
+                    <Navbar title="AnnaConnect" />
                   </div>
                   <div>
-                    <Ngo/>
+                    <Ngo />
                   </div>
                 </ProtectedRoute>
               }

@@ -1,6 +1,7 @@
 h4 {
   text-align: center;
 }
+
 .registration {
   margin-top: 80px !important;
   margin-bottom: 50px !important;
@@ -49,21 +50,6 @@ h4 {
   margin-right: 10px;
 }
 
-.registration button {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background-color: #328f48;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.registration button:hover {
-  background-color: #328f48;
-}
-
 .registration .image-upload {
   display: flex;
   align-items: center;
@@ -77,4 +63,31 @@ h4 {
 .registration p {
   color: red;
   text-align: center;
+}
+
+.agreement {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.submit-button {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #328f48;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.submit-button button:hover {
+  background-color: #287b3d;
 }

@@ -136,101 +136,104 @@ function Registration() {
       alert("Failed to submit form. Please try again later.");
     }
   };
-  return (
-    <div>
-      <form action="">
-        <div className="registration">
-          <h4>
-            <b>Registration Form </b>
-          </h4>
-          {/* <p>{currentUser.email}</p> */}
 
-          <div>
-            <label>User Type:</label>
-            <select
-              name="userType"
-              value={formData.userType}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select...</option>
-              <option value="Feeder">Feeder</option>
-              <option value="Donor">Donor</option>
-            </select>
+    return (
+      <div>
+        <form action="">
+          <div className="registration">
+            <h4>
+              <b>Registration Form </b>
+            </h4>
+            {/* <p>{currentUser.email}</p> */}
+            <div>
+              <label>User Type:</label>
+              <select
+                name="userType"
+                value={formData.userType}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select...</option>
+                <option value="Feeder">Feeder</option>
+                <option value="Donor">Donor</option>
+              </select>
+            </div>
+            <div>
+              <label>Organization Name:</label>
+              <input
+                type="text"
+                name="organizationName"
+                value={formData.organizationName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Address:</label>
+              <textarea
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Mobile No.:</label>
+              <input
+                type="tel"
+                name="mobileNo"
+                value={formData.mobileNo}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Registration ID:</label>
+              <input
+                type="text"
+                name="registrationId"
+                value={formData.registrationId}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div>
+              <label>Upload Required Document:</label>
+              <StoreImageTextFirebase setImg={setImg} setFlag={setFlag} />
+              <p>{img}</p>
+            </div>
+            <div className="agreement">
+              <input
+                type="checkbox"
+                name="agreedToTerms"
+                checked={formData.agreedToTerms}
+                onChange={handleChange}
+                required
+              />
+              <label>I agree to the terms and conditions</label>
+            </div>
+            <div className="submit-button">
+              <button id="rty" type="submit" disabled={flag} onClick={handleSubmit}>
+                Submit
+              </button>
+            </div>
           </div>
-          <div>
-            <label>Organization Name:</label>
-            <input
-              type="text"
-              name="organizationName"
-              value={formData.organizationName}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Address:</label>
-            <textarea
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Mobile No.:</label>
-            <input
-              type="tel"
-              name="mobileNo"
-              value={formData.mobileNo}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Registration ID:</label>
-            <input
-              type="text"
-              name="registrationId"
-              value={formData.registrationId}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Upload Required Document:</label>
-            <StoreImageTextFirebase setImg={setImg} setFlag={setFlag} />
-            <p>{img}</p>
-          </div>
-        </div>
-        <div>
-          <input
-            type="checkbox"
-            name="agreedToTerms"
-            checked={formData.agreedToTerms}
-            onChange={handleChange}
-            required
-          />
-          <label>I agree to the terms and conditions</label>
-        </div>
-        <div>
-          <button id="rty" type="submit" disabled={flag} onClick={handleSubmit}>
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+        </form>
+      </div>
+    );
+    
+
+  
 }
 
 export default Registration;

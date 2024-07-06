@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
+  sendEmailVerification,
 } from "firebase/auth";
 
 const AuthContext = createContext();
@@ -29,8 +30,13 @@ export const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const signup = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+  const signup = async (email, password, languageCode = "en") => {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    auth.languageCode = "en";
+    
+    await sendEmailVerification(user);
+    return user;
   };
 
   const loginWithGoogle = () => {

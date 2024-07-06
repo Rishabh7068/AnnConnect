@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
-import './Loginsignup.css'
+import './Loginsignup.css';
 
 const Signup = () => {
   const { signup } = useAuth();
@@ -13,14 +13,15 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signup(email, password);
-      alert("signup successful!");
-      navigate("/");
+      const user = await signup(email, password);
+      alert("Signup successful! A verification email has been sent. Please verify your email before logging in.");
+      await user.auth.signOut();
+      navigate("/Login");
     } catch (error) {
       setError(error.message);
     }
   };
-// sign up
+
   return (
     <div className="container">
       <h2>Signup</h2>
@@ -41,10 +42,8 @@ const Signup = () => {
       </form>
       {error && <p>{error}</p>}
       <p>
-        <p>
-          Already have an account?
-          <button onClick={() => navigate("/Login")}>Log In</button>
-        </p>
+        Already have an account?
+        <button onClick={() => navigate("/Login")}>Log In</button>
       </p>
     </div>
   );
