@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   query,
   addDoc,
@@ -8,6 +8,7 @@ import {
   where,
   doc,
   getDoc,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "./firebase";
 import { useAuth } from "./AuthProvider";
@@ -19,56 +20,52 @@ export const ListedFood = () => {
   const [nam, setName] = useState("");
   const { currentUser } = useAuth();
 
-  useEffect(() => {
-    async function fetchData() {
-      const carsData = [];
-      const querySnapshot1 = collection(db, "userDonorids");
-      const val = await getDocs(querySnapshot1);
+  async function fetchData() {
+    const carsData = [];
+    const querySnapshot1 = collection(db, "userDonorids");
+    const val = await getDocs(querySnapshot1);
+    console.log(val);
+    for (const doc of val.docs) {
       console.log(val);
-      for (const doc of val.docs) {
-        console.log(val);
-        const x = doc.data().Userid;
-        const eventcoll = query(
-          collection(db, "userDonor/" + x + "/Events"),
-          where("servings", "!=", "")
-        );
-        const eve = await getDocs(eventcoll);
+      const x = doc.data().Userid;
+      const eventcoll = query(
+        collection(db, "userDonor/" + x + "/Events"),
+        where("servings", "!=", ""),orderBy("date")
+      );
+      const eve = await getDocs(eventcoll);
 
-        const addcoll = query(
-          collection(db, "userFeeder/" + currentUser.uid + "/AddedFood")
-        );
-        const add = await getDocs(addcoll);
-        let z =1;
+      const addcoll = query(
+        collection(db, "userFeeder/" + currentUser.uid + "/AddedFood")
+      );
+      const add = await getDocs(addcoll);
+      let z =1;
 
-        eve.forEach(async (dd) => {
-          var fg = false;
-          add.forEach((cc) => {
-            if (cc.data().id === dd.id) {
-              fg = cc.data().flag;
-            }
-          });
-
-          console.log(z);
-          z++;
-          console.log(add);
-          carsData.push({
-            id: dd.id,
-            uidd: doc.data().Userid,
-            name: dd.data().name,
-            address: dd.data().address,
-            date: dd.data().date,
-            servings: dd.data().servings,
-            on: dd.data().on,
-            flag: fg,
-          });
+      eve.forEach(async (dd) => {
+        var fg = false;
+        add.forEach((cc) => {
+          if (cc.data().id === dd.id) {
+            fg = cc.data().flag;
+          }
         });
-      }
 
-      setCars(carsData);
+        console.log(z);
+        z++;
+        console.log(add);
+        carsData.push({
+          id: dd.id,
+          uidd: doc.data().Userid,
+          name: dd.data().name,
+          address: dd.data().address,
+          date: dd.data().date,
+          servings: dd.data().servings,
+          on: dd.data().on,
+          flag: fg,
+        });
+      });
     }
 
-    fetchData();
-  });
+    setCars(carsData);
+  }
 
   const handleAddFood = async (idx, id, uidd) => {
     if (con === "" || nam === "" || need === "") {
@@ -115,6 +112,7 @@ export const ListedFood = () => {
   return (
     <div>
       <h2>Listed Food From All Donors</h2>
+      <button onClick={fetchData}>Show List</button>
       <table border="2px">
         <thead>
           <tr>
