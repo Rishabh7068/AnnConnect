@@ -32,7 +32,6 @@ export const AddEventForm = () => {
       setAddress("");
       setContact("");
       setOn("");
-      console.log("Added ");
     } catch (error) {
       console.error("Error adding document: ", error);
     }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
-import "./Loginsignup.css";
+import './Loginsignup.css'
 
 const Signup = () => {
   const { signup } = useAuth();
@@ -20,7 +20,7 @@ const Signup = () => {
       setError(error.message);
     }
   };
-  // sign up
+// sign up
   return (
     <div className="container">
       <h2>Signup</h2>

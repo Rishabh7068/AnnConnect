@@ -5,6 +5,7 @@ import { EventList } from "./EventList";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import { useNavigate } from "react-router-dom";
+import { BookedFood } from "./BookedFood";
 
 export default function Donor() {
   const [name, setName] = useState("");
@@ -31,6 +32,7 @@ export default function Donor() {
       <h1>Donor</h1>
       <AddEventForm />
       <EventList />
+      <BookedFood/>
     </div>
   );
 }
