@@ -4,11 +4,11 @@ import { db } from "./firebase";
 import { useAuth } from "./AuthProvider";
 
 export const AddedFood = () => {
-  const [cars, setCars] = useState([]);
+  const [food, setFoods] = useState([]);
   const { currentUser } = useAuth();
 
   async function fetchData() {
-    const carsData = [];
+    const foodsData = [];
 
     const querySnapshot1 = collection(
       db,
@@ -16,29 +16,33 @@ export const AddedFood = () => {
     );
     const val = await getDocs(querySnapshot1);
     for (const docc of val.docs) {
-      const x = docc.data().uidd;
-      const y = docc.data().id;
-
-      const eveDoc = await getDoc(doc(db, "userDonor/" + x + "/Events/" + y));
-      const orgDoc = await getDoc(doc(db, "userDonor/" + x));
-
-      carsData.push({
-        oa: orgDoc.data().organizationName,
+      const userKey = docc.data().userKey;
+      const eventKey = docc.data().eventKey;
+      const eveDoc = await getDoc(doc(db, "userDonor/" + userKey + "/Events/" + eventKey));
+      
+      
+      const orgDoc = await getDoc(doc(db, "userDonor/" + userKey));
+        console.log(userKey);
+        console.log(orgDoc.data().organizationName);
+      
+        
+      foodsData.push({
+         organizationName: orgDoc.data().organizationName,
         date: eveDoc.data().date,
         name: eveDoc.data().name,
-        add: eveDoc.data().address,
-        con: eveDoc.data().contact,
+        address: eveDoc.data().address,
+        contact: eveDoc.data().contact,
         reserve: docc.data().need,
       });
     }
 
-    setCars(carsData);
+    setFoods(foodsData);
   }
 
   return (
     <div>
-      <h2>Confirm Food </h2>
-      <button onClick={fetchData}>Show Confirm Food</button>
+      <h2>Confirmed Food</h2>
+      <button onClick={fetchData}>Show Confirmed Food</button>
       <table border="2px">
         <thead>
           <tr>
@@ -51,14 +55,14 @@ export const AddedFood = () => {
           </tr>
         </thead>
         <tbody>
-          {cars.map((car, index) => (
+          {food.map((data, index) => (
             <tr key={index}>
-              <td>{car.oa}</td>
-              <td>{car.date}</td>
-              <td>{car.name}</td>
-              <td>{car.add}</td>
-              <td>{car.con}</td>
-              <td>{car.reserve}</td>
+              <td>{data.organizationName}</td>
+              <td>{data.date}</td>
+              <td>{data.name}</td>
+              <td>{data.address}</td>
+              <td>{data.contact}</td>
+              <td>{data.reserve}</td>
             </tr>
           ))}
         </tbody>

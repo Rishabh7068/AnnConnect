@@ -14,13 +14,13 @@ import { db } from "./firebase";
 import { useAuth } from "./AuthProvider";
 
 export const ListedFood = () => {
-  const [cars, setCars] = useState([]);
-  const [con, setCon] = useState("");
-  const [nam, setName] = useState("");
+  const [foods, setFoods] = useState([]);
+  const [contact, setContact] = useState("");
+  const [name, setName] = useState("");
   const { currentUser } = useAuth();
 
   async function fetchData() {
-    const carsData = [];
+    const foodsData = [];
     const querySnapshot1 = collection(db, "userDonorids");
     const val = await getDocs(querySnapshot1);
   
@@ -32,56 +32,53 @@ export const ListedFood = () => {
         orderBy("date")
       );
       const eve = await getDocs(eventcoll);
-
       const addcoll = query(
         collection(db, "userFeeder/" + currentUser.uid + "/AddedFood")
       );
       const add = await getDocs(addcoll);
-      
 
       eve.forEach(async (dd) => {
         var fg = false;
         add.forEach((cc) => {
-          if (cc.data().id === dd.id) {
+          if (cc.data().eventKey === dd.id) {
             fg = cc.data().flag;
           }
         });
 
        
         
-        carsData.push({
-          id: dd.id,
-          uidd: doc.data().Userid,
+        foodsData.push({
+          eventKey: dd.id,
+          userKey: doc.data().Userid,
           name: dd.data().name,
           address: dd.data().address,
           date: dd.data().date,
           servings: dd.data().servings,
-          on: dd.data().on,
           flag: fg,
           value: 0,
         });
       });
     }
 
-    setCars(carsData);
+    setFoods(foodsData);
   }
 
-  const handleAddFood = async (idx, id, uidd) => {
-    if (con === "" || nam === "" || cars[idx].value === "") {
+  const handleAddFood = async (idx, eventKey, userKey) => {
+    if (contact === "" || name === "" || foods[idx].value === "") {
       alert("feel all details");
       return;
     }
 
-    let need = cars[idx].value;
-
+    let need = foods[idx].value;
     const querySnapshot = await getDoc(
-      doc(db, "userDonor/" + uidd + "/Events/" + id)
+     
+      doc(db, "userDonor/" + userKey + "/Events/" + eventKey)
     );
 
     let y = querySnapshot.data().servings - need;
 
     try {
-      const eventDoc = doc(db, "userDonor/" + uidd + "/Events", id);
+      const eventDoc = doc(db, "userDonor/" + userKey + "/Events", eventKey);
       await updateDoc(eventDoc, { servings: y });
     } catch (error) {
       console.error("Error updating document: ", error);
@@ -91,19 +88,19 @@ export const ListedFood = () => {
       await addDoc(
         collection(db, "userFeeder/" + currentUser.uid + "/AddedFood"),
         {
-          uidd,
-          id,
+          userKey,
+          eventKey,
           need,
-          nam,
-          con,
+          name,
+          contact,
           flag: true,
         }
       );
 
-      setCars((prevCars) => {
-        const newCars = [...prevCars];
-        newCars[idx].flag = true;
-        return newCars;
+      setFoods((prevFoods) => {
+        const newFoods = [...prevFoods];
+        newFoods[idx].flag = true;
+        return newFoods;
       });
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -128,12 +125,12 @@ export const ListedFood = () => {
           </tr>
         </thead>
         <tbody>
-          {cars.map((car, index) => (
+          {foods.map((food, index) => (
             <tr key={index}>
-              <td>{car.name}</td>
-              <td>{car.address}</td>
-              <td>{car.date}</td>
-              <td>{car.servings}</td>
+              <td>{food.name}</td>
+              <td>{food.address}</td>
+              <td>{food.date}</td>
+              <td>{food.servings}</td>
               <td>
                 <input
                   type="text"
@@ -145,34 +142,34 @@ export const ListedFood = () => {
                 <input
                   type="text"
                   placeholder="Contact No"
-                  onChange={(e) => setCon(e.target.value)}
+                  onChange={(e) => setContact(e.target.value)}
                 />
               </td>
               <td>
                 <input
                   type="number"
                   placeholder="Serving Needed"
-                  max={car.servings}
-                  value={cars[index].value}
+                  max={food.servings}
+                  value={foods[index].value}
                   onChange={(e) => {
                     const value = e.target.value;
-                    if (value > car.servings) {
-                      setCars((prevCars) => {
-                        const newCars = [...prevCars];
-                        newCars[index].value = car.servings;
-                        return newCars;
+                    if (value > food.servings) {
+                      setFoods((prevFoods) => {
+                        const newFoods = [...prevFoods];
+                        newFoods[index].value = food.servings;
+                        return newFoods;
                       });
                     } else if(value < 0){
-                      setCars((prevCars) => {
-                        const newCars = [...prevCars];
-                        newCars[index].value =0;
-                        return newCars;
+                      setFoods((prevFoods) => {
+                        const newFoods = [...prevFoods];
+                        newFoods[index].value =0;
+                        return newFoods;
                       });
                     }else {
-                      setCars((prevCars) => {
-                        const newCars = [...prevCars];
-                        newCars[index].value = value;
-                        return newCars;
+                      setFoods((prevFoods) => {
+                        const newFoods = [...prevFoods];
+                        newFoods[index].value = value;
+                        return newFoods;
                       });
                     }
                   }}
@@ -180,11 +177,11 @@ export const ListedFood = () => {
               </td>
               <td>
                 <button
-                  onClick={() => handleAddFood(index, car.id, car.uidd)}
-                  disabled={car.flag}
+                  onClick={() => handleAddFood(index, food.eventKey, food.userKey)}
+                  disabled={food.flag}
                 >
                   {" "}
-                  {car.flag ? "Added" : "Add Food"}{" "}
+                  {food.flag ? "Added" : "Add Food"}{" "}
                 </button>
               </td>
             </tr>

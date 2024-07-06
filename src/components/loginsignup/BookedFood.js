@@ -20,41 +20,43 @@ export const BookedFood = () => {
     const val = await getDocs(querySnapshot1);
 
     for (const docSnap of val.docs) {
-      const x = docSnap.data().Userid;
+      const userKey = docSnap.data().Userid;
 
-      // Fetch organization name
       let organizationName = '';
       try {
-        const querySnapshot = await getDoc(doc(db, "userFeeder/"+ x));
+        const querySnapshot = await getDoc(doc(db, "userFeeder/"+ userKey));
         organizationName = querySnapshot.data().organizationName;
       } catch (error) {
         console.error("Error fetching organization name: ", error);
       }
 
-      // Fetch added foods
+      
+      console.log( "userFeeder/"+ userKey+ "/AddedFood");
+      console.log(currentUser.uid);
       const foodcoll = query(
-        collection(db, "userFeeder/"+ x+ "/AddedFood"),
-        where("uidd", "!=", "")
+        collection(db, "userFeeder/"+ userKey+ "/AddedFood"),
+        where("userKey", "==", currentUser.uid)
       );
       const food = await getDocs(foodcoll);
 
+
       for (const dd of food.docs) {
-        // Fetch date
         let date = '';
         try {
           const eventSnapshot = await getDoc(
-            doc(db, "userDonor/"+ currentUser.uid+ "/Events/"+ dd.data().id)
+            doc(db, "userDonor/"+ currentUser.uid+ "/Events/"+ dd.data().eventKey)
           );
           date = eventSnapshot.data().date;
         } catch (error) {
           console.error("Error fetching date: ", error);
         }
+        console.log(date);
 
         foodsData.push({
           id: dd.id,
-          name: dd.data().nam,
+          name: dd.data().name,
           date: date,
-          contact: dd.data().con,
+          contact: dd.data().contact,
           servings: dd.data().need,
           organizationName: organizationName,
         });

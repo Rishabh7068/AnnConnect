@@ -8,7 +8,7 @@ export const AddEventForm = () => {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [contact, setContact] = useState("");
-  const [on, setOn] = useState("");
+  const [organizationName,setOrganizationName] = useState("");
   const { currentUser } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -18,20 +18,20 @@ export const AddEventForm = () => {
         doc(db, "userDonor/" + currentUser.uid)
       );
 
-      setOn(querySnapshot.data().organizationName);
+      setOrganizationName(querySnapshot.data().organizationName);
       await addDoc(collection(db, "userDonor/" + currentUser.uid + "/Events"), {
         date,
         name,
         address,
         contact,
-        on,
+        organizationName,
       });
 
       setDate("");
       setName("");
       setAddress("");
       setContact("");
-      setOn("");
+      setOrganizationName("");
     } catch (error) {
       console.error("Error adding document: ", error);
     }

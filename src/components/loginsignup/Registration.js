@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "./AuthProvider";
 import StoreImageTextFirebase from "./StoreImageTextFirebase";
-
 import "./Registration.css";
 import { useNavigate } from "react-router-dom";
 import { collection, doc, setDoc, addDoc } from "firebase/firestore";
@@ -12,7 +11,7 @@ function Registration() {
   const [img, setImg] = useState("");
   const [flag, setFlag] = useState(true);
   const navigate = useNavigate();
-  // class to store data
+
   const [formData, setFormData] = useState({
     userId: "",
     userType: "",
@@ -32,27 +31,25 @@ function Registration() {
     }));
   };
 
-  async function writeUserData(urlll, uid, uty, on, nam, add, no, rid, ag, tp) {
+  async function writeUserData(imgUrl, userKey, usertype, organizationname, Name, Address, number, RegistrationId, AgreedToTerms, type) {
     try {
-       await setDoc(doc(db, "user" + tp + "/" + uid), {
-        userType: uty,
-        organizationName: on,
-        name: nam,
-        address: add,
-        mobileNo: no,
-        registrationId: rid,
-        pdfURL: urlll,
-        agreedToTerms: ag,
+       await setDoc(doc(db, "user" + type + "/" + userKey), {
+        userType: usertype,
+        organizationName: organizationname,
+        name: Name,
+        address: Address,
+        mobileNo: number,
+        registrationId: RegistrationId,
+        pdfURL: imgUrl,
+        agreedToTerms: AgreedToTerms,
       });
-
-     
     } catch (e) {
       console.error("Error adding document: ", e);
     }
 
     try {
-      await addDoc(collection(db, "user" + tp + "ids"), {
-        Userid: uid,
+      await addDoc(collection(db, "user" + type + "ids"), {
+        Userid: userKey,
       });
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -74,7 +71,6 @@ function Registration() {
       return;
     }
 
-    // Prepare data to be stored in Firebase RTDB
     const dataToSave = {
       userId: currentUser.uid,
       userType: formData.userType,
