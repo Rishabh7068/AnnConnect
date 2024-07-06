@@ -15,7 +15,6 @@ import { useAuth } from "./AuthProvider";
 
 export const ListedFood = () => {
   const [cars, setCars] = useState([]);
-  const [need, setNeed] = useState("");
   const [con, setCon] = useState("");
   const [nam, setName] = useState("");
   const { currentUser } = useAuth();
@@ -60,6 +59,7 @@ export const ListedFood = () => {
           servings: dd.data().servings,
           on: dd.data().on,
           flag: fg,
+          value : 0,
         });
       });
     }
@@ -68,10 +68,12 @@ export const ListedFood = () => {
   }
 
   const handleAddFood = async (idx, id, uidd) => {
-    if (con === "" || nam === "" || need === "") {
+    if (con === "" || nam === "" || cars[idx].value === "") {
       alert("feel all details");
       return;
     }
+
+    let need =cars[idx].value;
 
     const querySnapshot = await getDoc(
       doc(db, "userDonor/" + uidd + "/Events/" + id)
@@ -151,7 +153,24 @@ export const ListedFood = () => {
                 <input
                   type="number"
                   placeholder="Serving Needed"
-                  onChange={(e) => setNeed(e.target.value)}
+                  max={car.servings}
+                  value={cars[index].value}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    if (value > car.servings) { // Replace 100 with your desired maximum value
+                      setCars((prevCars) => {
+                        const newCars = [...prevCars];
+                        newCars[index].value = car.servings;
+                        return newCars;
+                      }); // Set to maximum value if exceeded
+                    } else {
+                      setCars((prevCars) => {
+                        const newCars = [...prevCars];
+                        newCars[index].value = value;
+                        return newCars;
+                      });
+                    }
+                  }}
                 />
               </td>
               <td>
