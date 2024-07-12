@@ -39,11 +39,11 @@
 
 .container4{
     background: url('./initiative.jpeg');
-    height: 350px;
+    height: 600px;
     width: 1000px;
     background-size: cover;
     background-position: center;
-    margin-left: 570px;
+    margin-left: 550px;
     margin-bottom: 100px;
 }
 .cards {
