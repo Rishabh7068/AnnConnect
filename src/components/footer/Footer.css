@@ -1,12 +1,22 @@
-.footer{
-    margin-top: 80px;
-    display: flex;
-    justify-content: space-between; 
-    align-items: flex-start; 
-    padding: 20px; 
-    background-color: #bcbcbd;
+.footer {
+  background-color: #cccaca;
+  padding: 20px 0;
+  text-align: center;
+  color: #333;
+  font-family: Arial, sans-serif;
 }
-.col-6 {
-    flex: 1; 
-    margin: 0 10px; 
-  }
+
+.footer-content a {
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-content a:hover {
+  text-decoration: underline;
+}
+
+.footer-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
